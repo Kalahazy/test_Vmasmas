@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.examtest.Model.ciudadano;
 import com.examtest.Repository.ciudadanoRepository;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/ciudadanos")
 public class ciudadanoController {
@@ -22,6 +24,13 @@ public class ciudadanoController {
 	@Autowired
 	private ciudadanoRepository ciudadanoRepository;
 	
+// ~~~~~ POST ~~~~~
+	@PostMapping
+	public ciudadano addCiudadano(@Valid @RequestBody ciudadano data) {
+		return ciudadanoRepository.save(data);
+	}
+	
+// ~~~~~ GET ~~~~~
 	@GetMapping
 	public List<ciudadano> getAllCiudadanos(){
 		return ciudadanoRepository.findAll();
@@ -31,23 +40,22 @@ public class ciudadanoController {
 		return ciudadanoRepository.findById(id)
 				.orElseThrow( () -> new RuntimeException("No se encontró el ciudadano con el ID: " + id) );
 	}
-		
-	@PostMapping
-	public ciudadano addCiudadano(@RequestBody ciudadano data) {
-		return ciudadanoRepository.save(data);
-	}
 	
+// ~~~~~ PUT ~~~~~
 	@PutMapping("/{id}")
 	public ciudadano updateCiudadano(@PathVariable Long id, @RequestBody ciudadano detailsCiudadano){
 		ciudadano ciudadanoUpd = ciudadanoRepository.findById(id)
 		.orElseThrow( () -> new RuntimeException("No se encontró el ciudadano con el ID: " + id) );
 		
 		ciudadanoUpd.setNombre(detailsCiudadano.getNombre());
-		ciudadanoUpd.setDireccion(detailsCiudadano.getDireccion());
+		ciudadanoUpd.setFechaNacimiento(detailsCiudadano.getFechaNacimiento());
+		ciudadanoUpd.setCurp(detailsCiudadano.getCurp());
+		ciudadanoUpd.setCelular(detailsCiudadano.getCelular());
 		
 		return ciudadanoRepository.save(ciudadanoUpd);
 	}
 	
+// ~~~~~ DELETE ~~~~~
 	@DeleteMapping("/{id}")
 	public String deleteCiudadano(@PathVariable Long id) {
 		ciudadano ciudadanoDel = ciudadanoRepository.findById(id)
