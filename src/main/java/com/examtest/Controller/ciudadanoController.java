@@ -37,13 +37,13 @@ public class ciudadanoController {
 		return ciudadanoRepository.save(data);
 	}
 	
-	@PutMapping
+	@PutMapping("/{id}")
 	public ciudadano updateCiudadano(@PathVariable Long id, @RequestBody ciudadano detailsCiudadano){
 		ciudadano ciudadanoUpd = ciudadanoRepository.findById(id)
 		.orElseThrow( () -> new RuntimeException("No se encontró el ciudadano con el ID: " + id) );
 		
 		ciudadanoUpd.setNombre(detailsCiudadano.getNombre());
-		ciudadanoUpd.setCurp(detailsCiudadano.getCurp());
+		ciudadanoUpd.setDireccion(detailsCiudadano.getDireccion());
 		
 		return ciudadanoRepository.save(ciudadanoUpd);
 	}

@@ -10,8 +10,24 @@ public class ciudadano {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	//Attributes
 	private Long id;
-	private String nombre, curp, fechaNacimiento, direccion;
+	private String nombre, direccion;
+	
+	//Constructor
+	public ciudadano(Long id, String nombre, String direccion) {
+		this.id = id;
+		this.nombre = nombre;
+		this.direccion = direccion;
+	}
+	
+	//Empty constructor
+	public ciudadano() {
+		
+	}
+
+	//Getters & Setters
 	public Long getId() {
 		return id;
 	}
@@ -24,23 +40,17 @@ public class ciudadano {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getCurp() {
-		return curp;
-	}
-	public void setCurp(String curp) {
-		this.curp = curp;
-	}
-	public String getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
 	public String getDireccion() {
 		return direccion;
 	}
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	//toString
+	@Override
+	public String toString() {
+		return "ciudadano [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + "]";
 	}
 	
 }
